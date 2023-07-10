@@ -15,25 +15,44 @@ import java.util.Scanner;
  */
 public class ArithmeticBase 
 {
+        public enum ArithmeticOperation{
+            PLUS,
+            MINUS,
+            TIMES,
+            DIVIDE
+        }
  public double x,y;
     double calculate(double x, double y) 
         {
         Scanner sc =new Scanner(System.in);
         System.out.println("Enter arithmetic operation to Perform: ");
         String s= sc.next();
-        switch (s.toUpperCase()) 
+        
+        ArithmeticOperation operation = parseArithmeticOperation(input);
+        if (operation == null) {
+            System.out.println("Invalid operation entered.");
+            return 0.0;
+        }
+        
+        switch (operation) 
         {
-            case "PLUS":
+            case PLUS:
                 return x + y;
-            case "MINUS":
+            case MINUS:
                 return x - y;
-            case "TIMES":
+            case TIMES:
                 return x * y;
-            case "DIVIDE":
+            case DIVIDE:
                 return x / y;
             default:
                 throw new AssertionError("Unknown operations " + this);
         }
+        }
+    private ArithmeticOperation parseArithmeticOperation(String input) {
+        try {
+            return ArithmeticOperation.valueOf(input.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
    
-}
